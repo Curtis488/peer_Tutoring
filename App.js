@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import Home from './components/Home';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="SignUp">
+          <Stack.Screen 
+              name='SignUp' 
+              component={SignUp}
+              options={{headerShown: false}}/>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen 
+              name="Home" 
+              component={Home} 
+              options={{headerLeft:() => (<MaterialCommunityIcons name="account-outline" size={30} color="black" />),
+              headerRight: () => <Ionicons name="notifications-outline" size={24} color="black" />}}/>
+        </Stack.Navigator>
+      </NavigationContainer> 
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
